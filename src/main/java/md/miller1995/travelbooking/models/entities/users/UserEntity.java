@@ -1,11 +1,10 @@
-package md.miller1995.travelbooking.models.entities;
+package md.miller1995.travelbooking.models.entities.users;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import md.miller1995.travelbooking.utils.UserRole;
 
 import java.util.UUID;
 
@@ -31,6 +30,5 @@ public class UserEntity {
     @Column(name = "password")
     private String password;
     @Column(name = "role")
-    @Enumerated(EnumType.STRING)
-    private UserRole role;
+    private String role;
 }

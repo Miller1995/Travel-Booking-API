@@ -1,6 +1,6 @@
 package md.miller1995.travelbooking.repositories;
 
-import md.miller1995.travelbooking.models.entities.UserEntity;
+import md.miller1995.travelbooking.models.entities.users.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

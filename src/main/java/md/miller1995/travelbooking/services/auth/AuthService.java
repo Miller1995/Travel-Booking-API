@@ -14,7 +14,7 @@ public interface AuthService {
      *
      * @param userRegisterDTO
      */
-    void register(UserRegisterDTO userRegisterDTO);
+    UserRegisterDTO register(UserRegisterDTO userRegisterDTO);
 
     /**
      * This method is used for authenticate a user and return the jwt-token for this user

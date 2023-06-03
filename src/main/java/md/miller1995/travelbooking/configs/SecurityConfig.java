@@ -4,10 +4,10 @@ import md.miller1995.travelbooking.securities.UserAuthProviderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.lang.NonNull;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -26,21 +26,18 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(@NonNull HttpSecurity http) throws Exception {
+
+        http.csrf().disable()
+            .authorizeHttpRequests((autz) -> autz
+                    .requestMatchers("/api/v1/auth/**").permitAll()
+                    .requestMatchers("/api/v1/super-admin/**").hasRole("SUPER_ADMIN")
+                    .requestMatchers("/api/v1/admin").hasRole("ADMIN")
+                    .anyRequest().authenticated());
 
         http
-                .csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/api/v1/auth/**")
-                .permitAll()
-                    .anyRequest()
-                    .hasAnyRole("USER", "ADMIN", "SUPER_ADMIN")
-                        .and()
-                            .sessionManagement()
-                            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                                .and()
-                                .authenticationProvider(userAuthDetailsProvider)
-                                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+            .authenticationProvider(userAuthDetailsProvider)
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

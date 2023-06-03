@@ -1,6 +1,6 @@
 package md.miller1995.travelbooking.services.auth;
 
-import md.miller1995.travelbooking.models.entities.UserEntity;
+import md.miller1995.travelbooking.models.entities.users.UserEntity;
 import md.miller1995.travelbooking.repositories.UserRepository;
 import md.miller1995.travelbooking.securities.UserAuthDetails;
 import org.springframework.beans.factory.annotation.Autowired;

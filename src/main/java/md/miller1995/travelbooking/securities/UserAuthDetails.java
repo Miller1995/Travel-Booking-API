@@ -1,6 +1,6 @@
 package md.miller1995.travelbooking.securities;
 
-import md.miller1995.travelbooking.models.entities.UserEntity;
+import md.miller1995.travelbooking.models.entities.users.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +18,7 @@ public class UserAuthDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(userEntity.getRole().toString()));
+        return Collections.singletonList(new SimpleGrantedAuthority(userEntity.getRole()));
     }
 
     @Override
