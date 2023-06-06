@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import md.miller1995.travelbooking.models.dtos.travels.TravelDTO;
 import md.miller1995.travelbooking.models.entities.travels.TravelEntity;
 import md.miller1995.travelbooking.repositories.TravelRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -23,12 +22,10 @@ import java.util.stream.Collectors;
 public class TravelServiceImpl implements TravelService{
 
     private final TravelRepository travelRepository;
-    private final ModelMapper modelMapper;
 
     @Autowired
-    public TravelServiceImpl(TravelRepository travelRepository, ModelMapper modelMapper) {
+    public TravelServiceImpl(TravelRepository travelRepository) {
         this.travelRepository = travelRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
