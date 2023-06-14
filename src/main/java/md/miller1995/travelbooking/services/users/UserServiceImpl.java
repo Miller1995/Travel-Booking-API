@@ -31,14 +31,12 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-
     @Override
     @Transactional
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('SUPER_ADMIN')")
     public UserRegisterDTO saveUser(UserRegisterDTO userRegisterDTO) {
         return authService.register(userRegisterDTO);
     }
-
 
     @Override
     @Transactional
@@ -57,7 +55,6 @@ public class UserServiceImpl implements UserService {
         return returnUser;
     }
 
-
     @Override
     @Transactional
     @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
@@ -69,7 +66,6 @@ public class UserServiceImpl implements UserService {
         UserRegisterDTO returnUser = convertUserEntityToUserRegisterDTO(updatedUser);
         return returnUser;
     }
-
 
     @Override
     @Transactional

@@ -46,8 +46,8 @@ class TravelRepositoryTest {
         //when
         List<TravelEntity> travelEntityList = travelRepository.findTravelEntitiesByType("SKIING");
         //then
-        assertThat(travelEntityList.get(0).getStartDate().compareTo(travelEntityTest.getStartDate()));
-        assertThat((travelEntityList.get(0).getAmount()).compareTo(travelEntityTest.getAmount()));
+        assertThat(travelEntityList.get(0).getStartDate()).isEqualTo(travelEntityTest.getStartDate());
+        assertThat((travelEntityList.get(0).getAmount())).isEqualTo(travelEntityTest.getAmount());
     }
 
     @Test
