@@ -1,5 +1,6 @@
 package md.miller1995.travelbooking.services.auth;
 
+import md.miller1995.travelbooking.exceptions.users.UserNotFoundException;
 import md.miller1995.travelbooking.models.entities.users.UserEntity;
 import md.miller1995.travelbooking.repositories.UserRepository;
 import md.miller1995.travelbooking.securities.UserAuthDetails;
@@ -25,7 +26,7 @@ public class UserAuthDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<UserEntity> user = userRepository.findUserEntityByUsername(username);
         if(user.isEmpty()){
-            throw new UsernameNotFoundException("User not found!");
+            throw new UserNotFoundException();
         }
         return new UserAuthDetails(user.get());
     }
