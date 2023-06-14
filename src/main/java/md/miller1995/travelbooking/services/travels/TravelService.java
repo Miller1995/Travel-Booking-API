@@ -32,6 +32,15 @@ public interface TravelService {
     TravelDTO updateTravel(UUID id, TravelDTO travelDTO);
 
     /**
+     * This method delete travel by id travel
+     *
+     * @author Anton Nirca
+     * @since 03/06/2023
+     * @param id
+     */
+    void deleteTravel(UUID id);
+
+    /**
      * This method find all travels from database after their type
      *
      * @author Anton Nirca
@@ -40,15 +49,6 @@ public interface TravelService {
      * @return  list of object type TravelDTO
      */
     List<TravelDTO> findAllTravelByType(String type);
-
-    /**
-     * This method delete travel by id travel
-     *
-     * @author Anton Nirca
-     * @since 03/06/2023
-     * @param id
-     */
-    void deleteTravel(UUID id);
 
     /**
      * This method find all travels from database between 2 date and after their type

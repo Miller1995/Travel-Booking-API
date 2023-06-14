@@ -62,6 +62,4 @@ public class TravelController {
                                                                     @RequestParam(value = "endDate") LocalDate endDate){
         return ResponseEntity.ok(travelService.findAllTravelByDateAndByType(type, startDate, endDate));
     }
-
-
 }
