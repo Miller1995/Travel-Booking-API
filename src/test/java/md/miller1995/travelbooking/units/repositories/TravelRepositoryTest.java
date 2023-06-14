@@ -68,8 +68,8 @@ class TravelRepositoryTest {
                                                                                     LocalDate.of(2023,11,29));
         //then
 
-        assertThat(travelEntityList.get(0).getType().compareTo(travelEntityTest.getType()));
-        assertThat((travelEntityList.get(0).getAmount()).compareTo(travelEntityTest.getAmount()));
+        assertThat(travelEntityList.get(0).getType()).isEqualTo(travelEntityTest.getType());
+        assertThat((travelEntityList.get(0).getAmount())).isEqualTo(travelEntityTest.getAmount());
     }
 
     @Test
@@ -81,7 +81,7 @@ class TravelRepositoryTest {
                                                                                     LocalDate.of(2023,11,29));
         //then
 
-        assertThat(travelEntityList.get(0).getType().compareTo("travelEntityTest.getType()"));
+        assertThat(travelEntityList.get(0).getType()).isNotEqualTo("travelEntityTest.getType()");
         assertThat(travelEntityList.get(0).getAmount()).isNotEqualByComparingTo(3334.44);
     }
 }

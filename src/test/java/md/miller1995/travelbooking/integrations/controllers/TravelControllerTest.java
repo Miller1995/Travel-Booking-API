@@ -105,23 +105,30 @@ class TravelControllerTest {
     @Disabled
     @Test
     void testShouldCheckIfGetTravelByInvalidTypeWasNotFound() throws Exception{
-        mockMvc.perform(MockMvcRequestBuilders
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                 .get("/api/v1/travels")
                 .param("type","INVALID")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is(400));
+                .andExpect(status().is(400))
+                .andReturn();
+
+        assertEquals(400, result.getResponse().getStatus());
+
     }
 
     @Disabled
     @Test
     void testShouldCheckIfGetTravelByDateAndByTypeWasFound() throws Exception{
-        mockMvc.perform(MockMvcRequestBuilders
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                 .get("/api/v1/travels/search")
                 .param("type","SNOW")
                 .param("startDate", "2023-11-21")
                 .param("endDate", "2023-11-22")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is(200));
+                .andExpect(status().is(200))
+                .andReturn();
+
+        assertEquals(200, result.getResponse().getStatus());
     }
 
     private String convertObjectToJsonString(Object response){

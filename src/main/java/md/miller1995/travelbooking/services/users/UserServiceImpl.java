@@ -7,6 +7,7 @@ import md.miller1995.travelbooking.repositories.UserRepository;
 import md.miller1995.travelbooking.services.auth.AuthService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,28 +31,18 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Transactional
-    @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public UserRegisterDTO saveUser(UserRegisterDTO userRegisterDTO) {
-        var user = UserRegisterDTO.builder()
-                .firstName(userRegisterDTO.getFirstName())
-                .lastName(userRegisterDTO.getLastName())
-                .username(userRegisterDTO.getUsername())
-                .email(userRegisterDTO.getEmail())
-                .password(passwordEncoder.encode(userRegisterDTO.getPassword()))
-                .build();
 
-        UserEntity userToBeSave = convertUserRegisterDTOToUserEntity(user);
-        userToBeSave.setRole("ROLE_USER");
-        UserEntity userSaved = userRepository.save(userToBeSave);
-        UserRegisterDTO userReturn = convertUserEntityToUserRegisterDTO(userSaved);
-        return userReturn;
+    @Override
+    @Transactional
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('SUPER_ADMIN')")
+    public UserRegisterDTO saveUser(UserRegisterDTO userRegisterDTO) {
+        return authService.register(userRegisterDTO);
     }
 
-    @Transactional
+
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Transactional
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('SUPER_ADMIN')")
     public UserRegisterDTO updateUserByUsername(String username, UserRegisterDTO userRegisterDTO) {
         var userToBeUpdate = userRepository.findUserEntityByUsername(username).get();
 
@@ -59,15 +50,16 @@ public class UserServiceImpl implements UserService {
         userToBeUpdate.setLastName(userRegisterDTO.getLastName());
         userToBeUpdate.setUsername(userRegisterDTO.getUsername());
         userToBeUpdate.setEmail(userRegisterDTO.getEmail());
-        userToBeUpdate.setPassword(userRegisterDTO.getPassword());
+        userToBeUpdate.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
 
         UserEntity updatedUser = userRepository.save(userToBeUpdate);
         UserRegisterDTO returnUser = convertUserEntityToUserRegisterDTO(updatedUser);
         return returnUser;
     }
 
-    @Transactional
+
     @Override
+    @Transactional
     @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
     public UserRegisterDTO updateRoleForUserToAdminByUsername(String username){
         var userToBeUpdate = userRepository.findUserEntityByUsername(username).get();
@@ -78,14 +70,16 @@ public class UserServiceImpl implements UserService {
         return returnUser;
     }
 
-    @Transactional
+
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Transactional
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('SUPER_ADMIN')")
     public void deleteUserByUsername(String username) {
         userRepository.deleteByUsername(username);
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('SUPER_ADMIN')")
     public UserRegisterDTO findUserByUsername(String username) {
         var userFound = userRepository.findUserEntityByUsername(username).orElseThrow(UserNotFoundException::new);
         UserRegisterDTO userRegisterDTO = convertUserEntityToUserRegisterDTO(userFound);

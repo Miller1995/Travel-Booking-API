@@ -45,7 +45,7 @@ public class AuthServiceImpl implements AuthService {
                 .build();
 
         UserEntity userAuthEntity = convertUserRegisterDTOToUserEntity(user);
-        userAuthEntity.setRole("ROLE_ADMIN");
+        userAuthEntity.setRole("ROLE_USER");
         UserEntity savedUser = userRepository.save(userAuthEntity);
         UserRegisterDTO returnUser = convertUserEntityToUserRegisterDTO(savedUser);
 

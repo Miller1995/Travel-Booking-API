@@ -45,17 +45,17 @@ class UserRepositoryTest {
     @Test
     void testShouldCheckIfUserEntityWasFoundByUsername(){
         //when
-        Optional userEntity = userRepository.findUserEntityByUsername("Killer");
+        var userEntity = userRepository.findUserEntityByUsername("Killer");
         //then
-        assertThat(userEntity.equals(userEntityTest));
+        assertThat(userEntity.get().getUsername()).isEqualTo(userEntityTest.getUsername());
     }
 
     @Test
     void testShouldCheckIfUserEntityWasNotFoundByUsername(){
         //when
-        Optional userEntity = userRepository.findUserEntityByUsername("NoName");
+        var userEntity = userRepository.findUserEntityByUsername("NoName");
         //then
-        assertThat(userEntity.isEmpty());
+        assertThat(userEntity).isEmpty();
     }
 
     @Test
@@ -63,7 +63,7 @@ class UserRepositoryTest {
         //when
         userRepository.deleteByUsername("Killer");
         //then
-        assertThat(userEntityTest.equals(null));
+        assertThat(userRepository.findUserEntityByUsername("Killer")).isEmpty();
     }
 
     @Test
@@ -71,6 +71,6 @@ class UserRepositoryTest {
         //when
         userRepository.deleteByUsername("NoName");
         //then
-        assertThat(userEntityTest.getUsername().compareTo("Killer"));
+        assertThat(userEntityTest.getUsername()).isEqualTo("Killer");
     }
 }

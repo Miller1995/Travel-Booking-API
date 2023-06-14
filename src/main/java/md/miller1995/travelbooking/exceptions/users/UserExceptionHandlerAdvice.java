@@ -1,6 +1,6 @@
 package md.miller1995.travelbooking.exceptions.users;
 
-import md.miller1995.travelbooking.utils.ErrorResponse;
+import md.miller1995.travelbooking.utils.ExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class UserExceptionHandlerAdvice {
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException exception){
-        ErrorResponse response = new ErrorResponse(
+    public ResponseEntity<ExceptionResponse> handleUserNotFoundException(UserNotFoundException exception){
+        ExceptionResponse response = new ExceptionResponse(
                 "User wasn't found!",
                 System.currentTimeMillis()
         );

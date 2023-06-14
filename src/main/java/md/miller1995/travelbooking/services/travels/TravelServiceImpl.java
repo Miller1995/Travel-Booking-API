@@ -30,7 +30,7 @@ public class TravelServiceImpl implements TravelService{
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('SUPER_ADMIN')")
     public TravelDTO saveTravel(TravelDTO travelDTO) {
         var travel = TravelDTO.builder()
                 .type(travelDTO.getType())
@@ -48,7 +48,7 @@ public class TravelServiceImpl implements TravelService{
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('SUPER_ADMIN')")
     public TravelDTO updateTravel(UUID id, TravelDTO travelDTO) {
         var travelResult = travelRepository.findById(id);
         var travelToBeUpdate = travelResult.get();
@@ -65,7 +65,7 @@ public class TravelServiceImpl implements TravelService{
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('SUPER_ADMIN')")
     public void deleteTravel(UUID id) {
         travelRepository.deleteById(id);
     }
