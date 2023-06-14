@@ -58,8 +58,9 @@ public class TravelServiceImpl implements TravelService{
         travelToBeUpdate.setEndDate(convertLocalDateToDateSQL(travelDTO.getEndDate()));
         travelToBeUpdate.setAmount(travelDTO.getAmount());
 
-        TravelDTO updatedTravel = convertTravelEntityToTravelDTO(travelToBeUpdate);
-        return updatedTravel;
+        TravelEntity updatedTravel = travelRepository.save(travelToBeUpdate);
+        TravelDTO returnTravel = convertTravelEntityToTravelDTO(updatedTravel);
+        return returnTravel;
     }
 
     @Override
