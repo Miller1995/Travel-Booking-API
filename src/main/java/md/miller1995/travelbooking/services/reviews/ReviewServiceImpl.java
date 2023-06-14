@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import md.miller1995.travelbooking.exceptions.reviews.ReviewNotFoundException;
 import md.miller1995.travelbooking.models.dtos.reviews.ReviewDTO;
 import md.miller1995.travelbooking.models.entities.reviews.ReviewEntity;
+import md.miller1995.travelbooking.models.entities.users.UserEntity;
 import md.miller1995.travelbooking.repositories.ReviewRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,14 @@ public class ReviewServiceImpl implements ReviewService {
          List<ReviewEntity> reviewEntityList = reviewRepository.findReviewEntitiesByPlace(place);
          List<ReviewDTO> reviewDTOList = convertListReviewEntityToDTO(reviewEntityList);
          return reviewDTOList;
+    }
+
+    @Override
+    public List<ReviewDTO> getAllReviewsWhereOwnerIs(String owner) {
+        List<ReviewEntity> reviewEntities = reviewRepository.findReviewEntitiesByOwnerIsContainingIgnoreCase(owner);
+        List<ReviewDTO> reviewDTOS = convertListReviewEntityToDTO(reviewEntities);
+
+        return reviewDTOS;
     }
 
     private Date convertLocalDateToDateSQL(LocalDate localDate){

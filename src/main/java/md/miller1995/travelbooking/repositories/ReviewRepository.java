@@ -1,6 +1,7 @@
 package md.miller1995.travelbooking.repositories;
 
 import md.miller1995.travelbooking.models.entities.reviews.ReviewEntity;
+import md.miller1995.travelbooking.models.entities.users.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -29,4 +30,12 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, UUID> {
      * @return List of ReviewEntity
      */
     List<ReviewEntity> findReviewEntitiesByPlace(String place);
+
+
+    /**
+     *
+     * @param owner
+     * @return
+     */
+    List<ReviewEntity> findReviewEntitiesByOwnerIsContainingIgnoreCase(String owner);
 }

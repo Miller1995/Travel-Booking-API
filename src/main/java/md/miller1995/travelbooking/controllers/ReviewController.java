@@ -1,7 +1,9 @@
 package md.miller1995.travelbooking.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
+import md.miller1995.travelbooking.models.dtos.auth.UserRegisterDTO;
 import md.miller1995.travelbooking.models.dtos.reviews.ReviewDTO;
+import md.miller1995.travelbooking.models.entities.users.UserEntity;
 import md.miller1995.travelbooking.services.reviews.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,4 +35,12 @@ public class ReviewController {
     public ResponseEntity<List<ReviewDTO>> getAllReviewByPlace(@PathVariable("place") String place){
         return ResponseEntity.ok(reviewService.getAllReviewsByPlace(place));
     }
+
+    @GetMapping("/{owner}")
+    @Operation(summary = "Route to find all reviews written by some user",
+            description = "Return list of reviews from database")
+    public ResponseEntity<List<ReviewDTO>> getAllReviewsWrittenByUser(@PathVariable("owner") String owner){
+        return ResponseEntity.ok(reviewService.getAllReviewsWhereOwnerIs(owner));
+    }
+
 }
