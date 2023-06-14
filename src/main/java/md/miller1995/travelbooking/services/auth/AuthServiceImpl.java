@@ -1,6 +1,7 @@
 package md.miller1995.travelbooking.services.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import md.miller1995.travelbooking.exceptions.users.UserNotFoundException;
 import md.miller1995.travelbooking.models.dtos.auth.UserAuthDTO;
 import md.miller1995.travelbooking.models.dtos.auth.UserRegisterDTO;
 import md.miller1995.travelbooking.models.entities.users.UserEntity;
@@ -58,7 +59,7 @@ public class AuthServiceImpl implements AuthService {
                         userAuthDTO.getPassword())
         );
 
-        var user = userRepository.findUserEntityByUsername(userAuthDTO.getUsername()).orElseThrow();
+        var user = userRepository.findUserEntityByUsername(userAuthDTO.getUsername()).orElseThrow(UserNotFoundException::new);
 
         String jwtToken = jwtUtil.generateToken(user.getUsername());
 
