@@ -13,7 +13,6 @@ import java.util.UUID;
 
 import static org.mockito.Mockito.verify;
 
-
 class UserServiceImplTest {
 
     private final UserRepository userRepository = Mockito.mock(UserRepository.class);

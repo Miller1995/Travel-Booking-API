@@ -13,7 +13,7 @@ public class ReviewExceptionHandlerAdvice {
     @ExceptionHandler(ReviewNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleReviewNotFoundException(ReviewNotFoundException exception) {
         ErrorResponse response = new ErrorResponse(
-                "User wasn't found!",
+                "Review wasn't found!",
                 System.currentTimeMillis()
         );
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);

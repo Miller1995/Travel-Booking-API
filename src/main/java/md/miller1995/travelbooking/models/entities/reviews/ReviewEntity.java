@@ -1,10 +1,8 @@
 package md.miller1995.travelbooking.models.entities.reviews;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import md.miller1995.travelbooking.models.entities.users.UserEntity;
 
 import java.sql.Date;
@@ -16,6 +14,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class ReviewEntity {
 
     @Id
@@ -30,7 +29,8 @@ public class ReviewEntity {
     private double rating;
     @Column(name = "created_at")
     private Date createdAt;
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private UserEntity owner;
 }

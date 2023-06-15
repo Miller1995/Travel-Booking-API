@@ -30,9 +30,13 @@ public class SecurityConfig {
 
         http.csrf().disable()
             .authorizeHttpRequests((autz) -> autz
-                    .requestMatchers("/api/v1/auth/**").permitAll()
+                    .requestMatchers(
+                            "/api/v1/auth/**",
+                            "/v3/api-docs/**",
+                            "/swagger-ui/**" ).permitAll()
                     .requestMatchers("/api/v1/super-admin/**").hasRole("SUPER_ADMIN")
                     .requestMatchers("/api/v1/admin").hasRole("ADMIN")
+                    .requestMatchers("/api/v1/admin").hasRole("SUPER_ADMIN")
                     .anyRequest().authenticated());
 
         http

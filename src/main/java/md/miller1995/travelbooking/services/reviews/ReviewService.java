@@ -1,10 +1,8 @@
 package md.miller1995.travelbooking.services.reviews;
 
 import md.miller1995.travelbooking.models.dtos.reviews.ReviewDTO;
-import md.miller1995.travelbooking.models.entities.users.UserEntity;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 
@@ -37,10 +35,4 @@ public interface ReviewService {
      */
     List<ReviewDTO> getAllReviewsByPlace(String place);
 
-    /**
-     *
-     * @param owner
-     * @return
-     */
-    List<ReviewDTO> getAllReviewsWhereOwnerIs(String owner);
 }
