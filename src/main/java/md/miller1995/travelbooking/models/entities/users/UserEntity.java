@@ -1,11 +1,12 @@
 package md.miller1995.travelbooking.models.entities.users;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import md.miller1995.travelbooking.models.entities.reviews.ReviewEntity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -31,4 +32,18 @@ public class UserEntity {
     private String password;
     @Column(name = "role")
     private String role;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<ReviewEntity> reviews = new ArrayList<>();
+
+    public UserEntity(UUID id, String firstName, String lastName, String username, String email, String password, String role) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 }

@@ -10,7 +10,7 @@ import java.util.Collections;
 
 public class UserAuthDetails implements UserDetails {
 
-    private final UserEntity userEntity;
+    private UserEntity userEntity;
 
     public UserAuthDetails(UserEntity userEntity) {
         this.userEntity = userEntity;
